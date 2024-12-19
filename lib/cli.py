@@ -12,7 +12,7 @@ def cli():
     """Hotel Management System CLI"""
     pass
 
-# ----- Customer Commands -----
+# Customer Commands 
 @cli.group()
 def customer():
     """Manage customers."""
@@ -59,3 +59,59 @@ def delete_customer(customer_id):
     conn.commit()
     conn.close()
     click.echo("Customer deleted successfully.")
+
+
+# ----- Visit Commands -----
+@cli.group()
+def visit():
+    """Manage visits."""
+    pass
+
+@visit.command("add")
+@click.argument("customer_id", type=int)
+@click.argument("visit_date")
+@click.argument("amount_paid", type=float)
+def add_visit(customer_id, visit_date, amount_paid):
+    """Add a new visit."""
+    conn = get_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("INSERT INTO visits (customer_id, visit_date, amount_paid) VALUES (?, ?, ?)",
+                       (customer_id, visit_date, amount_paid))
+        conn.commit()
+        click.echo("Visit added successfully!")
+    except Exception as e:
+        click.echo(f"Error: {e}")
+    finally:
+        conn.close()
+
+@visit.command("view")
+@click.argument("customer_id", type=int)
+def view_visits(customer_id):
+    """View visits for a specific customer."""
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM visits WHERE customer_id = ?", (customer_id,))
+    rows = cursor.fetchall()
+    conn.close()
+    if rows:
+        for row in rows:
+            click.echo(Visit(*row))
+    else:
+        click.echo("No visits found for this customer.")
+
+@visit.command("delete")
+@click.argument("visit_id", type=int)
+def delete_visit(visit_id):
+    """Delete a visit."""
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM visits WHERE id = ?", (visit_id,))
+    conn.commit()
+    conn.close()
+    click.echo("Visit deleted successfully.")
+
+
+
+if __name__ == '__main__':
+    cli()
