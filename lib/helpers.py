@@ -1,3 +1,4 @@
+#helpers.py
 import sqlite3
 
 DB_NAME = "hotel.db"

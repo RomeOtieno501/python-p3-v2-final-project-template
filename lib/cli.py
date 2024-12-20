@@ -1,3 +1,4 @@
+#cli.py
 import click
 from helpers import init_db
 from models.customers import Customer

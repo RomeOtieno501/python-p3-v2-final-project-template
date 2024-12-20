@@ -1,172 +1,157 @@
-# Phase 3 CLI+ORM Project Template
+# **Hotel Management System Database**
 
-## Learning Goals
+A simple command-line application to help hotel receptionists manage guest records efficiently.
 
-- Discuss the basic directory structure of a CLI.
-- Outline the first steps in building a CLI.
+By **Rome Otieno Ojuro**
 
----
+## **Description**
 
-## Introduction
+This is a comprehensive hotel database system designed for hotel receptionists to simplify and streamline guest management. The application operates via a command-line interface (CLI) and enables receptionists to manage customer and visit records efficiently. This includes adding, viewing, and deleting customer and visit information. The tool supports accurate record-keeping, ensuring efficient customer service and resource tracking.
 
-You now have a basic idea of what constitutes a CLI. Fork and clone this lesson
-for a project template for your CLI.
+## **Features**
 
-Take a look at the directory structure:
+- View a list of customers and their details.
 
-```console
-.
-├── Pipfile
-├── Pipfile.lock
-├── README.md
-└── lib
-    ├── models
-    │   ├── __init__.py
-    │   └── model_1.py
-    ├── cli.py
-    ├── debug.py
-    └── helpers.py
-```
+- Add new customers for better service tracking and customer care.
 
-Note: The directory also includes two files named `CONTRIBUTING.md` and
-`LICENSE.md` that are specific to Flatiron's curriculum. You can disregard or
-delete the files if you want.
+- Delete customer records to maintain accurate and up-to-date information.
 
----
+- View visits associated with specific customers.
 
-## Generating Your Environment
+- Add new visit records for customers, including dates and payment information.
 
-You might have noticed in the file structure- there's already a Pipfile!
+- Delete visit records to track resource utilization and manage records effectively.
 
-Install any additional dependencies you know you'll need for your project by
-adding them to the `Pipfile`. Then run the commands:
+## **How to Use**
 
-```console
-pipenv install
-pipenv shell
-```
+### **Requirements**
 
----
+- Python 3.8 or higher installed on your computer.
 
-## Generating Your CLI
+- SQLite for database management (included with Python).
 
-A CLI is, simply put, an interactive script and prompts the user and performs
-operations based on user input.
+- A code editor or terminal to run the application.
 
-The project template has a sample CLI in `lib/cli.py` that looks like this:
+### **User Stories**
 
-```py
-# lib/cli.py
+- **As a receptionist**, I want to view a list of all customers and their details.
 
-from helpers import (
-    exit_program,
-    helper_1
-)
+- **As a receptionist**, I want to add new customers to the database for efficient customer management.
 
+- **As a receptionist**, I want to delete customer records to keep the database accurate.
 
-def main():
-    while True:
-        menu()
-        choice = input("> ")
-        if choice == "0":
-            exit_program()
-        elif choice == "1":
-            helper_1()
-        else:
-            print("Invalid choice")
+- **As a receptionist**, I want to view all visits associated with specific customers.
+
+- **As a receptionist**, I want to add visit records to track customer activities.
+
+- **As a receptionist**, I want to delete visit records when needed to maintain database accuracy.
+
+## **Local Development**
+
+### **Requirements**
+
+- Python 3.8+ installed on your computer.
+
+- SQLite (comes pre-installed with Python).
+
+- Terminal/Command Line for running the application.
+
+### **Installation Process**
+
+1. Clone this repository using:
+
+    ```bash
+    git clone git@github.com:RomeOtieno501/python-p3-v2-final-project-template.git
+
+    Or download a ZIP file of the project.
+
+2. Navigate to the project directory:
+
+    ```bash
+    cd python-p3-v2-final-project-template
 
 
-def menu():
-    print("Please select an option:")
-    print("0. Exit the program")
-    print("1. Some useful function")
+3. Install required dependencies:
+
+    ```bash
+    pipenv install 
+    pip install click(if not already installed)
+    pipenv shell 
 
 
-if __name__ == "__main__":
-    main()
-```
+4. Run the application:
 
-The helper functions are located in `lib/helpers.py`:
+    ```bash
+    python cli.py
 
-```py
-# lib/helpers.py
+### **Example CLI Commands**
 
-def helper_1():
-    print("Performing useful function#1.")
+1. Add a Customer:
+    ```bash
+    python cli.py customer add "Dennis Kiboi" "denniskiboi2@gmail.com" "0755999222"
+
+2. View Customers:
+
+    ```bash 
+    python cli.py customer view
+
+3. Delete a Customer:
+
+    ```bash
+    python cli.py customer delete 1
+
+4. Add a Visit:
+
+    ```bash
+    python cli.py visit add 1 "2024-12-25" 200.00
+
+5. View Visits for a Customer:
+
+    ```bash
+    python cli.py visit view 1
+
+6. Delete a Visit:
+
+    ```bash
+    python cli.py visit delete 1
+
+## **Technologies Used**
+
+- Python 3.8+: Core programming language.
+
+- SQLite: Lightweight database for data storage and retrieval.
+
+- Click: Python library for building command-line interfaces.
+
+- Virtual Environments: Isolated Python environment for dependencies.
+
+## Project Structure
+
+project_root/
+├── cli.py              # Main entry point for the command-line interface
+├── helpers.py          # Helper functions for database initialization and connection
+├── models/             # Directory for database models
+│   ├── __init__.py     # Makes the directory a package
+│   ├── customers.py    # Customer model and related database operations
+│   └── visits.py       # Visit model and related database operations
+└── hotel.db         # SQLite database file (auto-generated after init)
+
+## Support and Contact Details
+
+If you have any questions, suggestions, or need assistance, please contact:
+
+Email: otienorome2@gmail.com
+
+## License
+
+MIT License
+
+Copyright © 2024 Emmanuel Mutugi
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-def exit_program():
-    print("Goodbye!")
-    exit()
-```
-
-You can run the template CLI with `python lib/cli.py`, or include the shebang
-and make it executable with `chmod +x`. The template CLI will ask for input, do
-some work, and accomplish some sort of task.
-
-Past that, CLIs can be whatever you'd like, as long as you follow the project
-requirements.
-
-Of course, you will update `lib/cli.py` with prompts that are appropriate for
-your application, and you will update `lib/helpers.py` to replace `helper_1()`
-with a useful function based on the specific problem domain you decide to
-implement, along with adding other helper functions to the module.
-
-In the `lib/models` folder, you should rename `model_1.py` with the name of a
-data model class from your specific problem domain, and add other classes to the
-folder as needed. The file `lib/models/__init__.py` has been initialized to
-create the necessary database constants. You need to add import statements to
-the various data model classes in order to use the database constants.
-
-You are also welcome to implement a different module and directory structure.
-However, your project should be well organized, modular, and follow the design
-principal of separation of concerns, which means you should separate code
-related to:
-
-- User interface
-- Data persistence
-- Problem domain rules and logic
-
----
-
-## Updating README.md
-
-`README.md` is a Markdown file that should describe your project. You will
-replace the contents of this `README.md` file with a description of **your**
-actual project.
-
-Markdown is not a language that we cover in Flatiron's Software Engineering
-curriculum, but it's not a particularly difficult language to learn (if you've
-ever left a comment on Reddit, you might already know the basics). Refer to the
-cheat sheet in this assignments's resources for a basic guide to Markdown.
-
-### What Goes into a README?
-
-This README serves as a template. Replace the contents of this file to describe
-the important files in your project and describe what they do. Each Python file
-that you edit should get at least a paragraph, and each function should be
-described with a sentence or two.
-
-Describe your actual CLI script first, and with a good level of detail. The rest
-should be ordered by importance to the user. (Probably functions next, then
-models.)
-
-Screenshots and links to resources that you used throughout are also useful to
-users and collaborators, but a little more syntactically complicated. Only add
-these in if you're feeling comfortable with Markdown.
-
----
-
-## Conclusion
-
-A lot of work goes into a good CLI, but it all relies on concepts that you've
-practiced quite a bit by now. Hopefully this template and guide will get you off
-to a good start with your Phase 3 Project.
-
-Happy coding!
-
----
-
-## Resources
-
-- [Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
